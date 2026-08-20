@@ -1,5 +1,6 @@
 package com.example.HMS.HospitalManagement.entity;
 
+import com.example.HMS.HospitalManagement.entity.type.BloodGroupType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,5 +23,5 @@ public class Patient {
     private String name;
     private LocalDate birthDate;
     private String email;
-    private String getName;
+    private BloodGroupType bloodGroup;
 }
