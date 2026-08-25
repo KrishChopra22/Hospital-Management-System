@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootTest
@@ -24,13 +23,14 @@ public class PatientTests {
 
     @Test
     public void testPatientRepository() {
-        List<Patient> patients = patientRepository.findAll();
+//        List<Patient> patients = patientRepository.findAll();   // This will find all patients but at the same time run N+1 queries, to find appointments of all N patients
+        List<Patient> patients = patientRepository.findAllPatientsWithAppointments();   // N+1 Query optimization
         System.out.println(patients);
     }
 
     @Test
     public void testTransactionMethods(){
-        Patient patient = patientService.getPatientById(1L);
+        Patient patient = patientService.setPatientNameById(1L, "Aman");
         System.out.println(patient);
 
 //        List<Patient> patientList = patientRepository.findPatientByBirthDateOrEmail(LocalDate.of(1989,4,12),".@gmail.com");

@@ -38,4 +38,8 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     @Modifying
     @Query("UPDATE Patient p SET p.name = :name where p.id = :id")
     int updatePatientNameWithId(@Param("name") String name, @Param("id") Long id);
+
+//    @Query("SELECT p FROM Patient p LEFT JOIN FETCH p.appointments")    // JPQL query not Native SQL, for N+1 Query optimization
+    @Query("SELECT p FROM Patient p LEFT JOIN FETCH p.appointments a LEFT JOIN FETCH a.doctor")    // to avoid N Doctor queries in above query, since FetchType is EAGER in ManyToOne
+    List<Patient> findAllPatientsWithAppointments();
 }
